@@ -1,6 +1,6 @@
 # ParkMate
 
-A peer-to-peer parking marketplace that connects property owners with unused parking spaces to drivers seeking reliable, on-demand parking — by the hour, day, or month.
+A peer-to-peer parking marketplace that connects property owners with unused parking spaces to drivers seeking reliable, on-demand parking — by the hour, day, or month. 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-black)](https://nodejs.org)
