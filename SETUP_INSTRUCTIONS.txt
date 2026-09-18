@@ -1,0 +1,29 @@
+# ParkMate - Quick Setup Guide
+
+### Prerequisites:
+Make sure you have Docker and Docker Compose installed and running on your system (e.g., Docker Desktop).
+
+### Step 1: Build and start the containers
+Open a terminal in the root of the project (where docker-compose.yml is located) and run:
+> docker-compose up -d --build
+
+This command will download the PostgreSQL database and build the Python FastAPI environment. The `-d` flag runs it in the background.
+
+### Step 2: Set up the database tables
+Once the containers are running, you need to apply the database migrations to create the tables (Users, Spots, Bookings) inside the database. Run:
+> docker-compose exec api alembic upgrade head
+
+### Step 3: Verify it's working
+You can check if the API is running by opening your browser and navigating to:
+> http://localhost:8000/
+
+To view the auto-generated API documentation (Swagger UI), go to:
+> http://localhost:8000/docs
+
+### Useful Commands:
+- Stop the containers: 
+  > docker-compose down
+- View logs of the API: 
+  > docker-compose logs -f api
+- Generate a new migration (after modifying models.py):
+  > docker-compose exec api alembic revision --autogenerate -m "description of changes"
