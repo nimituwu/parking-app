@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -9,6 +9,7 @@ class User(Base):
     phone = Column(String, unique=True, nullable=False)
     is_host = Column(Boolean, default=False)
     spots = relationship("ParkingSpot", back_populates="owner")
+    bookings = relationship("Booking", back_populates="guest")
 
 class ParkingSpot(Base):
     __tablename__ = "parking_spots"
@@ -21,3 +22,17 @@ class ParkingSpot(Base):
     price_per_hour = Column(Float, nullable=False)
     owner_id = Column(Integer, ForeignKey("users.id"))
     owner = relationship("User", back_populates="spots")
+    bookings = relationship("Booking", back_populates="spot")
+
+class Booking(Base):
+    __tablename__ = "bookings"
+    id = Column(Integer, primary_key=True, index=True)
+    spot_id = Column(Integer, ForeignKey("parking_spots.id"))
+    guest_id = Column(Integer, ForeignKey("users.id"))
+    start_time = Column(DateTime, nullable=False)
+    end_time = Column(DateTime, nullable=False)
+    total_price = Column(Float, nullable=False)
+    status = Column(String, default="confirmed") # confirmed, cancelled, completed
+
+    spot = relationship("ParkingSpot", back_populates="bookings")
+    guest = relationship("User", back_populates="bookings")
